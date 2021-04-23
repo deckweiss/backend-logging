@@ -1,0 +1,41 @@
+stages:
+  - build
+  - test
+  - publish
+
+# build
+build_package:
+  image: gradle:jdk15
+  stage: build
+  tags:
+    - test
+  script:
+    - gradle assemble
+  artifacts:
+    paths:
+      - backend/build/libs/*.jar
+  cache:
+    paths:
+      - .gradle/
+
+# test
+test_package:
+  image: gradle:jdk15
+  stage: test
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+  script:
+    - gradle test
+  allow_failure: false
+  cache:
+    paths:
+      - .gradle/
+  needs: [ "build_package" ]
+
+# publish
+# publish_package:
+#  stage: publish
+#  script:
+#    - gradle publish
+#  only:
+#    refs: [ master ]

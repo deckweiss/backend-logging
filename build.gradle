@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'at.deckweiss'
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+publishing {
+    publications {
+        library(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = "https://git.deckweiss.at/api/v4/projects/66/packages/maven"
+            name = "GitLab"
+            credentials(HttpHeaderCredentials) {
+                name = 'Private-Token'
+                value = "kZZXf5VsjJzGbMGxaDmT"
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+    }
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:jul-to-slf4j:1.7.30'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.9.0'
+    testImplementation 'org.mockito:mockito-inline:3.9.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+}
+
+test {
+    useJUnitPlatform()
+}

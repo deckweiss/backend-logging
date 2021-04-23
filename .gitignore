@@ -1,0 +1,10 @@
+# IDEA
+.idea
+
+# Gradle
+.gradle
+gradle-wrapper.jar
+build
+
+# macOS
+.DS_Store
