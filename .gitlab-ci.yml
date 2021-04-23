@@ -11,9 +11,6 @@ build_package:
     - test
   script:
     - gradle assemble
-  artifacts:
-    paths:
-      - backend/build/libs/*.jar
   cache:
     paths:
       - .gradle/
@@ -30,13 +27,20 @@ test_package:
   cache:
     paths:
       - .gradle/
-  needs: [ "build_package" ]
+  needs:
+    - build_package
 
 # publish
 publish_package:
+  image: gradle:jdk15
   stage: publish
   script:
     - gradle publish
+  cache:
+    paths:
+      - .gradle/
   only:
     refs:
       - master
+  needs:
+    - test_package
