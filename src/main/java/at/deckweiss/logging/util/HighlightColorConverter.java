@@ -5,7 +5,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.pattern.color.ANSIConstants;
 import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase;
 
-public class HighlighColorConverter extends ForegroundCompositeConverterBase<ILoggingEvent> {
+public class HighlightColorConverter extends ForegroundCompositeConverterBase<ILoggingEvent> {
 
     @Override
     protected String getForegroundColorCode(ILoggingEvent event) {
