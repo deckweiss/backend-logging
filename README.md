@@ -2,7 +2,23 @@
 
 Deckweiss' home-made logging package for Java (based on SLF4J + Logback).
 
-### How To
+### How To's
+
+#### Update this package
+
+1. `git checkout master` && `git pull` && `git checkout -b <my-new-branch>`
+2. Always update the version in `build.gradle` according to semantic versioning.
+    - `<Major>.<Minor>.<Patch>` eg. `1.0.5`
+        - Major-Version changes when there's a breaking change introduced
+        - Minor-Version changes when there's just a new feature or enhancement
+        - Patch-Version changes when there's a bugfix
+    - `<Major>.<Minor>.<Patch>-alpha<N>` eg. `1.0.5-alpha2`
+        - Should be used for experimental stuff only.
+3. Apply your changes to the code
+4. Push your changes
+5. After merging completed, the new version is automatically published to the registry
+
+#### Consume Logging
 
 Basic rules for logging:
 

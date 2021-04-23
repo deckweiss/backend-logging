@@ -33,9 +33,10 @@ test_package:
   needs: [ "build_package" ]
 
 # publish
-# publish_package:
-#  stage: publish
-#  script:
-#    - gradle publish
-#  only:
-#    refs: [ master ]
+publish_package:
+  stage: publish
+  script:
+    - gradle publish
+  only:
+    refs:
+      - master
