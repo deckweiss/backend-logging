@@ -56,3 +56,39 @@ public class MyFancyLoggingClass {
     }
 }
 ```
+
+#### Performance logging
+
+There's an annotation that can be placed on a method, which is then watched how long its execution took.
+
+```java
+import at.deckweiss.logging.annotation.PerformanceLog;
+
+public class MyFancyLoggingClass {
+
+    @PerformanceLog
+    public void myFancyMethod() {
+        // do magic
+    }
+
+    // groups performance logs, so they can be more easily queried
+    @PerformanceLog(group = "my-performance-group")
+    public void myFancyMethod() {
+        // do magic
+    }
+}
+```
+
+In order to make the annotation work in spring, a bean of type `PerformanceLogAspect` has to be exposed:
+
+```java
+
+@Configuration
+public class MyConfigurationClass {
+
+    @Bean
+    public PerformanceLogAspect performanceLogAspect() {
+        return new PerformanceLogAspect();
+    }
+}
+```
