@@ -20,6 +20,14 @@ public class LogParams {
         return this;
     }
 
+    public LogParams addIfNotNull(String name, Object value) {
+        if (value != null) {
+            this.logParams.add(new LogParam(name, value));
+        }
+
+        return this;
+    }
+
     LogParam[] toArray() {
         return this.logParams.toArray(new LogParam[] {});
     }
