@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 class LoggerImpl implements Logger {
-    private static final String METHODNAME_KEY = "MethodName";
+    private static final String METHOD_NAME_KEY = "MethodName";
 
     private final org.slf4j.Logger slf4jLogger;
 
@@ -16,85 +16,103 @@ class LoggerImpl implements Logger {
         this.slf4jLogger = slf4jLogger;
     }
 
+    // region debug
+
     @Override
-    public void debug(String message, LogParam... params) {
-        this.log(this.slf4jLogger::debug, message, params);
+    public void debug(String message) {
+        this.debug(message, new LogParams());
     }
 
     @Override
     public void debug(String message, LogParams params) {
-        this.debug(message, params.toArray());
+        this.log(this.slf4jLogger::debug, message, params.toArray());
     }
 
     @Override
-    public void debug(String message, Exception e, LogParam... params) {
-        this.log(this.slf4jLogger::debug, message, e, params);
+    public void debug(String message, Throwable throwable) {
+        this.debug(message, throwable, new LogParams());
     }
 
     @Override
-    public void debug(String message, Exception e, LogParams params) {
-        this.debug(message, e, params.toArray());
+    public void debug(String message, Throwable throwable, LogParams params) {
+        this.log(this.slf4jLogger::debug, message, throwable, params.toArray());
     }
 
+    // endregion
+
+    // region info
+
     @Override
-    public void info(String message, LogParam... params) {
-        this.log(this.slf4jLogger::info, message, params);
+    public void info(String message) {
+        this.info(message, new LogParams());
     }
 
     @Override
     public void info(String message, LogParams params) {
-        this.info(message, params.toArray());
+        this.log(this.slf4jLogger::info, message, params.toArray());
     }
 
     @Override
-    public void info(String message, Exception e, LogParam... params) {
-        this.log(this.slf4jLogger::info, message, e, params);
+    public void info(String message, Throwable throwable) {
+        this.info(message, throwable, new LogParams());
     }
 
     @Override
-    public void info(String message, Exception e, LogParams params) {
-        this.info(message, e, params.toArray());
+    public void info(String message, Throwable throwable, LogParams params) {
+        this.log(this.slf4jLogger::info, message, throwable, params.toArray());
     }
 
+    // endregion
+
+    // region warn
+
     @Override
-    public void warn(String message, LogParam... params) {
-        this.log(this.slf4jLogger::warn, message, params);
+    public void warn(String message) {
+        this.warn(message, new LogParams());
     }
 
     @Override
     public void warn(String message, LogParams params) {
-        this.warn(message, params.toArray());
+        this.log(this.slf4jLogger::warn, message, params.toArray());
     }
 
     @Override
-    public void warn(String message, Exception e, LogParam... params) {
-        this.log(this.slf4jLogger::warn, message, e, params);
+    public void warn(String message, Throwable throwable) {
+        this.warn(message, throwable, new LogParams());
     }
 
     @Override
-    public void warn(String message, Exception e, LogParams params) {
-        this.warn(message, e, params.toArray());
+    public void warn(String message, Throwable throwable, LogParams params) {
+        this.log(this.slf4jLogger::warn, message, throwable, params.toArray());
     }
 
+    // endregion
+
+    // region error
+
     @Override
-    public void error(String message, LogParam... params) {
-        this.log(this.slf4jLogger::error, message, params);
+    public void error(String message) {
+        this.error(message, new LogParams());
     }
 
     @Override
     public void error(String message, LogParams params) {
-        this.error(message, params.toArray());
+        this.log(this.slf4jLogger::error, message, params.toArray());
     }
 
     @Override
-    public void error(String message, Exception e, LogParam... params) {
-        this.log(this.slf4jLogger::error, message, e, params);
+    public void error(String message, Throwable throwable) {
+        this.error(message, throwable, new LogParams());
     }
 
     @Override
-    public void error(String message, Exception e, LogParams params) {
-        this.error(message, e, params.toArray());
+    public void error(String message, Throwable throwable, LogParams params) {
+        this.log(this.slf4jLogger::error, message, throwable, params.toArray());
     }
+
+    // endregion
+
+    // region helper
 
     private void log(Consumer<String> logFunc, String message, LogParam... params) {
         String msg = this.buildMessage(message, params);
@@ -103,10 +121,10 @@ class LoggerImpl implements Logger {
         this.removeMdcArguments();
     }
 
-    private void log(BiConsumer<String, Exception> logFunc, String message, Exception e, LogParam... params) {
+    private void log(BiConsumer<String, Throwable> logFunc, String message, Throwable throwable, LogParam... params) {
         String msg = this.buildMessage(message, params);
         this.putMdcArguments();
-        logFunc.accept(msg, e);
+        logFunc.accept(msg, throwable);
         this.removeMdcArguments();
     }
 
@@ -129,10 +147,12 @@ class LoggerImpl implements Logger {
                                   .filter(s -> !s.getClassName().equals(LoggerImpl.class.getName())).map(StackTraceElement::getMethodName)
                                   .findFirst()
                                   .orElse("method-not-found");
-        MDC.put(METHODNAME_KEY, methodName);
+        MDC.put(METHOD_NAME_KEY, methodName);
     }
 
     private void removeMdcArguments() {
-        MDC.remove(METHODNAME_KEY);
+        MDC.remove(METHOD_NAME_KEY);
     }
+
+    // endregion
 }
