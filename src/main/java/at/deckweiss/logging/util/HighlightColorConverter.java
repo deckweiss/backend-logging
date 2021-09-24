@@ -10,11 +10,14 @@ public class HighlightColorConverter extends ForegroundCompositeConverterBase<IL
     @Override
     protected String getForegroundColorCode(ILoggingEvent event) {
         Level level = event.getLevel();
-        return switch (level.toInt()) {
-            case Level.ERROR_INT -> ANSIConstants.BOLD + ANSIConstants.RED_FG;
-            case Level.WARN_INT -> ANSIConstants.YELLOW_FG;
-            case Level.INFO_INT -> ANSIConstants.DEFAULT_FG;
-            default -> ANSIConstants.DEFAULT_FG;
-        };
+        switch (level.toInt()) {
+            case Level.ERROR_INT:
+                return ANSIConstants.BOLD + ANSIConstants.RED_FG;
+            case Level.WARN_INT:
+                return ANSIConstants.YELLOW_FG;
+            case Level.INFO_INT:
+            default:
+                return ANSIConstants.DEFAULT_FG;
+        }
     }
 }

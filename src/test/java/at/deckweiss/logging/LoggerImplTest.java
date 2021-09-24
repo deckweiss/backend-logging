@@ -35,7 +35,7 @@ class LoggerImplTest {
     void givenNecessityToLog_whenInfoWithLogParamCalled_thenMethodNameIsCorrect() {
         this.mdcMockedStatic = mockStatic(MDC.class);
 
-        this.logger.info("my test log message", new LogParam("testParam", "testValue"));
+        this.logger.info("my test log message", new LogParams("testParam", "testValue"));
         this.mdcMockedStatic.verify(times(1), () -> MDC.put(METHOD_NAME_KEY, "givenNecessityToLog_whenInfoWithLogParamCalled_thenMethodNameIsCorrect"));
         this.mdcMockedStatic.verify(times(1), () -> MDC.remove(METHOD_NAME_KEY));
         this.mdcMockedStatic.verifyNoMoreInteractions();
@@ -57,7 +57,7 @@ class LoggerImplTest {
     void givenNecessityToLog_whenInfoWithLogParamsToArrayCalled_thenMethodNameIsCorrect() {
         this.mdcMockedStatic = mockStatic(MDC.class);
 
-        this.logger.info("my test log message", new LogParams("testParam", "testValue").add("second", "test").toArray());
+        this.logger.info("my test log message", new LogParams("testParam", "testValue").add("second", "test"));
         this.mdcMockedStatic.verify(times(1), () -> MDC.put(METHOD_NAME_KEY, "givenNecessityToLog_whenInfoWithLogParamsToArrayCalled_thenMethodNameIsCorrect"));
         this.mdcMockedStatic.verify(times(1), () -> MDC.remove(METHOD_NAME_KEY));
         this.mdcMockedStatic.verifyNoMoreInteractions();

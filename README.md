@@ -39,11 +39,11 @@ public class MyFancyLoggingClass {
 
         // Good logging
         logger.info("my message");
-        logger.info("my parametrized message", new LogParam("id", 1));
+        logger.info("my parametrized message", new LogParams("id", 1));
         logger.info("my parametrized message 2", new LogParams("id", 1).add("name", "UsernameTest").add("user", complexUser));
 
         logger.error("my error message", myFancyException);
-        logger.error("my parametrized error message", myFancyException, new LogParam("id", 1));
+        logger.error("my parametrized error message", myFancyException, new LogParams("id", 1));
         logger.error("my parametrized error message 2", myFancyException, new LogParams("id", 1).add("name", "UsernameTest"));
 
         // Bad logging - Don't use dynamic messages
@@ -51,7 +51,7 @@ public class MyFancyLoggingClass {
         logger.info("my super bad message {} {}", "is", "bad");
 
         // Output example
-        logger.info("my parametrized message", new LogParam("id", 1)); // my parametrized message [id="1"]
+        logger.info("my parametrized message", new LogParams("id", 1)); // my parametrized message [id="1"]
         logger.info("my parametrized message", new LogParams("id", 1).add("user", user)); // my parametrized message [id="1", user="<whatever user.toString() returns>"]
     }
 }

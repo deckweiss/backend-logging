@@ -1,6 +1,7 @@
 package at.deckweiss.logging;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LogParams {
@@ -17,6 +18,11 @@ public class LogParams {
 
     public LogParams add(String name, Object value) {
         this.logParams.add(new LogParam(name, value));
+        return this;
+    }
+
+    public LogParams add(LogParam... params) {
+        this.logParams.addAll(Arrays.asList(params));
         return this;
     }
 

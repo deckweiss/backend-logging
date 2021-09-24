@@ -41,4 +41,18 @@ class LogParamsTest {
 
         assertThat(logParams.toArray()).isEmpty();
     }
+
+    @Test
+    void givenMultipleLogParam_whenAddingMultipleParams_themParamsAreAdded() {
+        LogParam param1 = new LogParam("param1", "test1");
+        LogParam param2 = new LogParam("param2", "test2");
+
+        LogParams params = new LogParams().add(param1, param2);
+
+        assertThat(params.toArray()).extracting("paramName", "paramValue")
+                                    .containsExactly(
+                                            tuple("param1", "test1"),
+                                            tuple("param2", "test2")
+                                    );
+    }
 }
