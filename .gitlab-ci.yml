@@ -5,10 +5,8 @@ stages:
 
 # build
 build_package:
-  image: gradle:jdk15
+  image: gradle:jdk17
   stage: build
-  tags:
-    - test
   script:
     - gradle assemble
   cache:
@@ -17,10 +15,8 @@ build_package:
 
 # test
 test_package:
-  image: gradle:jdk15
+  image: gradle:jdk17
   stage: test
-  variables:
-    DOCKER_HOST: tcp://docker:2375/
   script:
     - gradle test
   allow_failure: false
@@ -32,7 +28,7 @@ test_package:
 
 # publish
 publish_package:
-  image: gradle:jdk15
+  image: gradle:jdk17
   stage: publish
   script:
     - gradle publish

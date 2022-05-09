@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'at.deckweiss'
-version '1.2.0'
+version '1.3.0'
 sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -22,8 +22,8 @@ publishing {
             url = "https://git.deckweiss.at/api/v4/projects/66/packages/maven"
             name = "GitLab"
             credentials(HttpHeaderCredentials) {
-                name = 'Deploy-Token'
-                value = 'EDffq3YLYhhyns1sgzn8'
+                name = 'Job-Token'
+                value = '${CI_JOB_TOKEN}'
             }
             authentication {
                 header(HttpHeaderAuthentication)
@@ -38,18 +38,20 @@ java {
 }
 
 dependencies {
-    implementation 'org.aspectj:aspectjrt:1.9.7'
-    implementation 'org.aspectj:aspectjweaver:1.9.7'
-    testImplementation 'org.assertj:assertj-core:3.20.2'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    implementation 'org.slf4j:slf4j-api:1.7.32'
-    implementation 'org.slf4j:jul-to-slf4j:1.7.32'
-    implementation 'ch.qos.logback:logback-classic:1.2.6'
-    testImplementation 'org.mockito:mockito-junit-jupiter:3.12.4'
-    testImplementation 'org.mockito:mockito-inline:3.12.4'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0'
+    implementation 'org.aspectj:aspectjrt:1.9.9.1'
+    implementation 'org.aspectj:aspectjweaver:1.9.9.1'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'org.slf4j:jul-to-slf4j:1.7.36'
+    implementation 'ch.qos.logback:logback-classic:1.2.11'
+    implementation("org.springframework.boot:spring-boot-autoconfigure:2.6.7")
+
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
+    testImplementation 'org.mockito:mockito-inline:4.5.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 test {
