@@ -56,25 +56,3 @@ class MyFancyLoggingClass {
     }
 }
 ```
-
-#### Performance logging
-
-There's an annotation that can be placed on any method, that measures and logs its execution time.
-
-```kotlin
-import at.deckweiss.logging.annotation.PerformanceLog;
-
-class MyFancyLoggingClass {
-
-    @PerformanceLog
-    fun myFancyMethod() {
-        // do magic
-    }
-
-    // groups performance logs, so they can be queried more easily
-    @PerformanceLog(group = "my-performance-group")
-    fun myFancyMethod() {
-        // do magic
-    }
-}
-```
