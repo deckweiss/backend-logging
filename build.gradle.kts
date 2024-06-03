@@ -1,9 +1,11 @@
+import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("java")
-    kotlin("jvm") version "1.9.0"
-    id("maven-publish")
+    kotlin("jvm") version "2.0.0"
+    id("com.vanniktech.maven.publish") version "0.28.0"
 }
 
 group = "at.deckweiss"
@@ -17,26 +19,6 @@ repositories {
 java {
     withSourcesJar()
     withJavadocJar()
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            from(components["java"])
-        }
-    }
-    repositories {
-        maven {
-            url = uri("https://git.deckweiss.at/api/v4/projects/87/packages/maven")
-            credentials(HttpHeaderCredentials::class) {
-                name = "Job-Token"
-                value = System.getenv("CI_JOB_TOKEN")
-            }
-            authentication {
-                create<HttpHeaderAuthentication>("header")
-            }
-        }
-    }
 }
 
 dependencies {
@@ -55,5 +37,16 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+    compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+
+    pom {
+        name.set("Deckweiss Logging")
+        description.set("Library for enhancing SLF4J logging by explicit parameters in the message")
+        inceptionYear.set("2022")
+    }
 }

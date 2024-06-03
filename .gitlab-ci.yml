@@ -5,20 +5,20 @@ stages:
 
 # build
 build_package:
-  image: gradle:jdk17
+  image: amazoncorretto:11-alpine
   stage: build
   script:
-    - gradle assemble
+    - sh gradlew assemble
   cache:
     paths:
       - .gradle/
 
 # test
 test_package:
-  image: gradle:jdk17
+  image: amazoncorretto:11-alpine
   stage: test
   script:
-    - gradle test
+    - sh gradlew test
   allow_failure: false
   cache:
     paths:
@@ -28,10 +28,10 @@ test_package:
 
 # publish
 publish_package:
-  image: gradle:jdk17
+  image: amazoncorretto:11-alpine
   stage: publish
   script:
-    - gradle publish
+    - sh gradlew publishMavenPublicationToMavenCentralRepository
   cache:
     paths:
       - .gradle/
