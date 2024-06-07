@@ -47,7 +47,7 @@ mavenPublishing {
     pom {
         name.set("Deckweiss Logging")
         description.set("Library for enhancing SLF4J logging by explicit parameters in the message")
-        url.set("https://git.deckweiss.at/chapters/backend/packages/logging")
+        url.set("https://github.com/deckweiss-gmbh/backend-logging")
         inceptionYear.set("2022")
 
         licenses {
@@ -67,7 +67,7 @@ mavenPublishing {
         }
 
         scm {
-            url.set("https://git.deckweiss.at/chapters/backend/packages/logging.git")
+            url.set("https://github.com/deckweiss-gmbh/backend-logging")
         }
     }
 
