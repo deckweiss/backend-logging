@@ -2,7 +2,7 @@ import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val packageVersion = "3.0.0-alpha2"
+val packageVersion = "3.0.0"
 
 plugins {
     id("java")
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    api("org.slf4j:slf4j-api:2.0.7")
+    implementation("org.slf4j:slf4j-api:2.0.7")
     implementation("org.slf4j:jul-to-slf4j:2.0.7")
     implementation("ch.qos.logback:logback-classic:1.4.8")
 
@@ -72,5 +72,5 @@ mavenPublishing {
     }
 
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-//    signAllPublications()
+    signAllPublications()
 }
